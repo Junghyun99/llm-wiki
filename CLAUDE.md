@@ -20,23 +20,41 @@
 * **원본 불변성:** `02_Raw_Sources/`에 보관된 모든 파일은 시스템의 단일 진실 공급원(Source of Truth)이다. 너는 읽기(Read)만 가능하며 수정(Edit)·삭제(Delete)·이동(Move)은 어떠한 상황에서도 절대 금지한다.
 * **위키 소유권:** `03_Wiki/`는 LLM이 전적으로 소유하고 관리하는 영역이다. 너는 위키 파일을 적극적으로 생성·수정·병합·삭제할 권한과 책임이 있다. 단, 사용자가 직접 편집한 내용도 기술적으로 존재할 수 있으며, 명시적인 Lint 명령 없이 사용자 편집 내용을 임의로 덮어쓰지 마라. 사용자는 위키를 읽고 탐색하는 것이 주된 역할이며, 직접 수정 시 다음 `/run-maintenance` 실행 때 LLM에 의해 내용이 재편성될 수 있음을 인지해야 한다.
 
-## 4. 자동화 파이프라인 (Two-Track System)
-너는 다음 두 가지 메인 트랙의 명령(Command)을 수행할 준비가 되어 있어야 한다. 작업 수행 시 관련된 `.claude/skills/`의 지침을 엄격히 따른다.
+## 4. 자동화 파이프라인 (Four-Track System)
+너는 다음 네 가지 트랙의 명령(Command)을 수행할 준비가 되어 있어야 한다. 작업 수행 시 관련된 `.claude/skills/`의 지침을 엄격히 따른다.
 
 ### 트랙 A: 지식 수집 및 분해 (Ingestion Track)
-* **명령어:** `/process-inbox` (또는 수집 자동화 실행 시)
-* **행동 로직:** 
-  1. `01_Inbox/`의 문서를 읽는다.
-  2. `.claude/skills/extract_zettelkasten` 규칙을 적용하여 문서를 분해한다.
-  3. `03_Wiki/` 루트에 1개의 문헌 노트(`@문헌명.md`)와 여러 개의 영구 노트(`개념명.md`)를 각각 생성한다.
-  4. 처리가 끝난 파일은 `02_Raw_Sources/YYYY-MM/` 폴더를 생성(없을 시)하여 이동(Archive)시킨다.
+* **명령어:** `/process-inbox`
+* **참조 스킬:** `.claude/skills/extract_zettelkasten.md`
+* **행동 로직:**
+  1. `01_Inbox/`의 문서를 읽고 핵심 요약과 추출 예정 노트 목록을 사용자에게 Preview로 보여준다.
+  2. 사용자 승인 후 `extract_zettelkasten` 규칙을 적용하여 문서를 분해한다. 이 과정에서 기존 노트와의 충돌을 감지하면 Preview에 포함하여 보고한다.
+  3. `03_Wiki/` 루트에 문헌 노트(`@문헌명.md`)와 영구 노트(`개념명.md`)를 생성하고 index.md·log.md를 갱신한다.
+  4. 처리가 끝난 파일은 `02_Raw_Sources/YYYY-MM/`으로 아카이빙한다.
 
 ### 트랙 B: 지식망 정리 및 유지보수 (Maintenance Track)
 * **명령어:** `/run-maintenance` 또는 `/lint`
+* **참조 스킬:** `.claude/skills/lint_zettelkasten.md`
 * **행동 로직:**
   1. `03_Wiki/` 전체를 스캔한다.
-  2. `.claude/skills/lint_zettelkasten` 규칙을 적용한다.
-  3. 내용이 겹치는 노트를 병합(Merge)하고, 고립된 노트를 허브 노트(`MOC_`)에 강제로 연결(Linking)하며, 끊어진 데드 링크를 복구한다.
+  2. `lint_zettelkasten` 규칙의 5대 Task(병합·고립구출·데드링크복구·MOC최신화·충돌감지)를 적용한다.
+  3. 작업 완료 후 정비 리포트를 출력하고 log.md를 갱신한다. 미작성 스텁 목록은 리포트에 포함하여 `/fill-stubs` 실행을 안내한다.
+
+### 트랙 C: 스텁 노트 웹 검색 보완 (Fill-Stubs Track)
+* **명령어:** `/fill-stubs`
+* **참조 커맨드:** `.claude/commands/fill_stubs.md`
+* **행동 로직:**
+  1. `#todo/fill` 태그가 달린 스텁 노트 목록을 스캔하고 사용자에게 선택을 요청한다.
+  2. 선택된 스텁에 대해 웹 검색으로 초안을 작성하고 사용자 승인 후 저장한다.
+  3. 승인된 노트의 `todo/fill` 태그를 제거하고 index.md·log.md를 갱신한다.
+
+### 트랙 D: 지식 쿼리 및 답변 (Query Track)
+* **명령어:** `/ask [질문내용]` 또는 일반 대화
+* **참조 스킬:** `.claude/skills/save_query_result.md`
+* **행동 로직:**
+  1. `03_Wiki/index.md`를 먼저 읽어 관련 노트를 추려낸 후 드릴다운한다.
+  2. 관련 노트를 종합하여 출처(`[[파일명]]`)를 명시한 답변을 생성한다.
+  3. `save_query_result` 기준을 충족하면 위키 저장을 제안하고, 승인 시 영구 노트로 저장 후 index.md·log.md를 갱신한다.
 
 ## 5. 명명 규칙 (Naming Conventions)
 `03_Wiki/`에 생성되는 모든 파일은 다음 규칙을 따른다.
