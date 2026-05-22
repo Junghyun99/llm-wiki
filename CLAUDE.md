@@ -28,7 +28,7 @@
 * **참조 스킬:** `.claude/skills/extract-zettelkasten/SKILL.md`
 * **행동 로직:**
   1. `01_Inbox/`의 문서를 읽고 핵심 요약과 추출 예정 노트 목록을 사용자에게 Preview로 보여준다.
-  2. 사용자 승인 후 `extract_zettelkasten` 규칙을 적용하여 문서를 분해한다. 이 과정에서 기존 노트와의 충돌을 감지하면 Preview에 포함하여 보고한다.
+  2. 사용자 승인 후 `extract-zettelkasten` 규칙을 적용하여 문서를 분해한다. 이 과정에서 기존 노트와의 충돌을 감지하면 Preview에 포함하여 보고한다.
   3. `03_Wiki/` 루트에 문헌 노트(`@문헌명.md`)와 영구 노트(`개념명.md`)를 생성하고 index.md·log.md를 갱신한다.
   4. 처리가 끝난 파일은 `02_Raw_Sources/YYYY-MM/`으로 아카이빙한다.
 
