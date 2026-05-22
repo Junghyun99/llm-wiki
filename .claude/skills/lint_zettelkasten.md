@@ -33,7 +33,7 @@
 * **조건:** `MOC_` 접두사가 붙은 허브 노트들.
 * **행동:**
   1. 새롭게 생성되거나 병합된 영구 노트들이 해당 MOC의 주제와 부합한다면, MOC 문서 내부의 리스트(`- [[ ]]`)에 누락 없이 추가하여 목차로서의 기능을 최신 상태로 유지한다.
-  2. MOC 신규 생성 시 `extract_zettelkasten` 스킬의 **[MOC 노트 양식 예시]** 를 반드시 따른다. (YAML 프론트매터 + 본문 구조)
+  2. MOC 신규 생성 시 `extract-zettelkasten` 스킬의 **[MOC 노트 양식 예시]** 를 반드시 따른다. (YAML 프론트매터 + 본문 구조)
   3. MOC 내용이 변경될 때마다 YAML 프론트매터의 `date_updated` 필드를 오늘 날짜(YYYY-MM-DD)로 갱신한다.
 
 ### Task E: 모순·충돌 감지 (Contradiction Detection)
