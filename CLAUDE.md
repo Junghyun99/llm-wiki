@@ -25,7 +25,7 @@
 
 ### 트랙 A: 지식 수집 및 분해 (Ingestion Track)
 * **명령어:** `/process-inbox`
-* **참조 스킬:** `.claude/skills/extract_zettelkasten.md`
+* **참조 스킬:** `.claude/skills/extract-zettelkasten/SKILL.md`
 * **행동 로직:**
   1. `01_Inbox/`의 문서를 읽고 핵심 요약과 추출 예정 노트 목록을 사용자에게 Preview로 보여준다.
   2. 사용자 승인 후 `extract_zettelkasten` 규칙을 적용하여 문서를 분해한다. 이 과정에서 기존 노트와의 충돌을 감지하면 Preview에 포함하여 보고한다.
