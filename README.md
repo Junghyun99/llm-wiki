@@ -41,7 +41,8 @@ llm-wiki/
 │   │   └── SKILL.md
     │   ├── lint-zettelkasten/
 │   │   └── SKILL.md
-    │   └── save_query_result.md
+    │   └── save-query-result/
+│       └── SKILL.md
     └── commands/                # 실행 매크로
         ├── process_inbox.md
         ├── run_maintenance.md
