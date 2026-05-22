@@ -34,10 +34,10 @@
 
 ### 트랙 B: 지식망 정리 및 유지보수 (Maintenance Track)
 * **명령어:** `/run-maintenance` 또는 `/lint`
-* **참조 스킬:** `.claude/skills/lint_zettelkasten.md`
+* **참조 스킬:** `.claude/skills/lint-zettelkasten/SKILL.md`
 * **행동 로직:**
   1. `03_Wiki/` 전체를 스캔한다.
-  2. `lint_zettelkasten` 규칙의 5대 Task(병합·고립구출·데드링크복구·MOC최신화·충돌감지)를 적용한다.
+  2. `lint-zettelkasten` 규칙의 5대 Task(병합·고립구출·데드링크복구·MOC최신화·충돌감지)를 적용한다.
   3. 작업 완료 후 정비 리포트를 출력하고 log.md를 갱신한다. 미작성 스텁 목록은 리포트에 포함하여 `/fill-stubs` 실행을 안내한다.
 
 ### 트랙 C: 스텁 노트 웹 검색 보완 (Fill-Stubs Track)
