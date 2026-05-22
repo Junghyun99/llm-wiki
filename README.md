@@ -39,7 +39,8 @@ llm-wiki/
     ├── skills/                  # LLM 행동 규칙
     │   ├── extract-zettelkasten/
 │   │   └── SKILL.md
-    │   ├── lint_zettelkasten.md
+    │   ├── lint-zettelkasten/
+│   │   └── SKILL.md
     │   └── save_query_result.md
     └── commands/                # 실행 매크로
         ├── process_inbox.md
