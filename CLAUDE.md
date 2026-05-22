@@ -50,11 +50,11 @@
 
 ### 트랙 D: 지식 쿼리 및 답변 (Query Track)
 * **명령어:** `/ask [질문내용]` 또는 일반 대화
-* **참조 스킬:** `.claude/skills/save_query_result.md`
+* **참조 스킬:** `.claude/skills/save-query-result/SKILL.md`
 * **행동 로직:**
   1. `03_Wiki/index.md`를 먼저 읽어 관련 노트를 추려낸 후 드릴다운한다.
   2. 관련 노트를 종합하여 출처(`[[파일명]]`)를 명시한 답변을 생성한다.
-  3. `save_query_result` 기준을 충족하면 위키 저장을 제안하고, 승인 시 영구 노트로 저장 후 index.md·log.md를 갱신한다.
+  3. `save-query-result` 기준을 충족하면 위키 저장을 제안하고, 승인 시 영구 노트로 저장 후 index.md·log.md를 갱신한다.
 
 ## 5. 명명 규칙 (Naming Conventions)
 `03_Wiki/`에 생성되는 모든 파일은 다음 규칙을 따른다.
