@@ -24,7 +24,7 @@
 너는 다음 네 가지 트랙의 명령(Command)을 수행할 준비가 되어 있어야 한다. 작업 수행 시 관련된 `.claude/skills/`의 지침을 엄격히 따른다.
 
 ### 트랙 A: 지식 수집 및 분해 (Ingestion Track)
-* **명령어:** `/process-inbox`
+* **명령어:** `/process_inbox`
 * **참조 스킬:** `.claude/skills/extract-zettelkasten/SKILL.md`
 * **행동 로직:**
   1. `01_Inbox/`의 문서를 읽고 핵심 요약과 추출 예정 노트 목록을 사용자에게 Preview로 보여준다.
