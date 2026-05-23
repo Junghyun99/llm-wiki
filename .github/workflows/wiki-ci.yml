@@ -19,14 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Run stats check
-        run: python3 .github/scripts/check_index_stats.py
+      - run: python3 .github/scripts/check_index_stats.py
 
   # ──────────────────────────────────────────────
   # Job 2: 프론트매터 필수 필드 검사
@@ -36,14 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Run frontmatter check
-        run: python3 .github/scripts/check_frontmatter.py
+      - run: python3 .github/scripts/check_frontmatter.py
 
   # ──────────────────────────────────────────────
   # Job 3: 파일명 명명 규칙 검사
@@ -53,45 +45,48 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Run naming check
-        run: python3 .github/scripts/check_naming.py
+      - run: python3 .github/scripts/check_naming.py
 
   # ──────────────────────────────────────────────
-  # Job 3: index.md 동기화 검사
+  # Job 4: index.md 동기화 검사
   # ──────────────────────────────────────────────
   check-index-sync:
     name: "🗂️ index.md 동기화"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Run index sync check
-        run: python3 .github/scripts/check_index_sync.py
+      - run: python3 .github/scripts/check_index_sync.py
 
   # ──────────────────────────────────────────────
-  # Job 3: 데드 링크 전수 검사
+  # Job 5: 데드 링크 검사
   # ──────────────────────────────────────────────
   check-dead-links:
     name: "🔗 데드 링크 검사"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: python3 .github/scripts/check_dead_links.py
 
-      - name: Run dead link check
-        run: python3 .github/scripts/check_dead_links.py
+  # ──────────────────────────────────────────────
+  # Job 6: log.md Append-only 및 형식 검사
+  # ──────────────────────────────────────────────
+  check-log:
+    name: "📜 log.md Append-only"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2    # HEAD~1 diff 를 위해 직전 커밋까지 fetch
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 .github/scripts/check_log.py
