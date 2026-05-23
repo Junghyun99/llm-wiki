@@ -38,10 +38,10 @@
 * **행동 로직:**
   1. `03_Wiki/` 전체를 스캔한다.
   2. `lint-zettelkasten` 규칙의 5대 Task(병합·고립구출·데드링크복구·MOC최신화·충돌감지)를 적용한다.
-  3. 작업 완료 후 정비 리포트를 출력하고 log.md를 갱신한다. 미작성 스텁 목록은 리포트에 포함하여 `/fill-stubs` 실행을 안내한다.
+  3. 작업 완료 후 정비 리포트를 출력하고 log.md를 갱신한다. 미작성 스텁 목록은 리포트에 포함하여 `/fill_stubs` 실행을 안내한다.
 
 ### 트랙 C: 스텁 노트 웹 검색 보완 (Fill-Stubs Track)
-* **명령어:** `/fill-stubs`
+* **명령어:** `/fill_stubs`
 * **참조 커맨드:** `.claude/commands/fill_stubs.md`
 * **행동 로직:**
   1. `#todo/fill` 태그가 달린 스텁 노트 목록을 스캔하고 사용자에게 선택을 요청한다.
@@ -49,7 +49,7 @@
   3. 승인된 노트의 `todo/fill` 태그를 제거하고 index.md·log.md를 갱신한다.
 
 ### 트랙 D: 지식 쿼리 및 답변 (Query Track)
-* **명령어:** `/ask [질문내용]` 또는 일반 대화
+* **명령어:** `/ask_wiki [질문내용]` 또는 일반 대화
 * **참조 스킬:** `.claude/skills/save-query-result/SKILL.md`
 * **행동 로직:**
   1. `03_Wiki/index.md`를 먼저 읽어 관련 노트를 추려낸 후 드릴다운한다.
