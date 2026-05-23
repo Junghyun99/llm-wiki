@@ -20,7 +20,6 @@ extract-zettelkasten 스킬 실행 후, 방금 생성된 노트들의 [[링크]]
 import argparse
 import os
 import re
-import subprocess
 from datetime import date
 from pathlib import Path
 
@@ -111,20 +110,6 @@ def update_log(stubs: list[str]):
 
     path.write_text(content, encoding="utf-8")
 
-# ── git commit & push ─────────────────────────────────────────────────────────
-
-def git_commit(stubs: list[str]):
-    files = (
-        [str(WIKI_DIR / f"{s}.md") for s in stubs]
-        + [str(WIKI_DIR / "index.md"), str(WIKI_DIR / "log.md")]
-    )
-    subprocess.run(["git", "add"] + files, check=True)
-    subprocess.run(
-        ["git", "commit", "-m", f"stub: 데드링크 {len(stubs)}건 자동 생성 [auto]"],
-        check=True
-    )
-    subprocess.run(["git", "push"], check=True)
-
 # ── 메인 ─────────────────────────────────────────────────────────────────────
 
 def main():
@@ -184,9 +169,7 @@ def main():
     update_log(created)
     print("  ✅ log.md 갱신")
 
-    # 5. git commit & push
-    git_commit(created)
-    print(f"\n🛠️  완료: 스텁 {len(created)}건 커밋")
+    print(f"\n🛠️  완료: 스텁 {len(created)}건 생성")
 
 if __name__ == "__main__":
     main()
