@@ -1,0 +1,29 @@
+name: Wiki CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "03_Wiki/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "03_Wiki/**"
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: index.md 통계 정합성 검사
+  # ──────────────────────────────────────────────
+  check-index-stats:
+    name: "📊 index.md 통계 정합성"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run stats check
+        run: python3 .github/scripts/check_index_stats.py
