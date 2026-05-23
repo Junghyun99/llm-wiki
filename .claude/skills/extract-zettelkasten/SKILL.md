@@ -166,7 +166,6 @@ index.md·log.md 갱신이 끝난 직후, 아래 스크립트를 실행하여 �
 ```bash
 python3 .claude/skills/extract-zettelkasten/scripts/check_dead_links.py \
   --files "생성된파일1.md,생성된파일2.md,..." \
-  --token "<GITHUB_PAT>" \
   --date "YYYY-MM-DD"
 ```
 
