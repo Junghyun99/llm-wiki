@@ -27,3 +27,20 @@ jobs:
 
       - name: Run stats check
         run: python3 .github/scripts/check_index_stats.py
+
+  # ──────────────────────────────────────────────
+  # Job 2: 데드 링크 전수 검사
+  # ──────────────────────────────────────────────
+  check-dead-links:
+    name: "🔗 데드 링크 검사"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run dead link check
+        run: python3 .github/scripts/check_dead_links.py
