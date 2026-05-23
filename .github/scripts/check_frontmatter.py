@@ -13,6 +13,10 @@ SKILL.md 기준 유형별 필수 필드:
   - 날짜 필드가 YYYY-MM-DD 형식인지
   - tags 필드가 리스트 형식인지
   - aliases 필드가 리스트 형식인지
+
+스텁 본문 무결성 검사 (체크 7 흡수):
+  - todo/fill 태그 있음 + 실질 내용 존재 → WARN (fill_stubs 후 태그 제거 누락)
+  - todo/fill 태그 없음 + 본문 비어있음  → FAIL  (빈 영구 노트)
 """
 
 import os
@@ -23,6 +27,7 @@ WIKI_DIR   = "03_Wiki"
 SKIP_FILES = {"index.md", "log.md", ".gitkeep"}
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+STUB_WARNING_RE = re.compile(r"^>\s*⚠️")   # 스텁 자동생성 경고문
 
 errors   = []
 warnings = []
@@ -39,6 +44,49 @@ def warn(fname: str, detail: str):
 # ──────────────────────────────────────────────
 # 프론트매터 파싱
 # ──────────────────────────────────────────────
+# ──────────────────────────────────────────────
+# 본문 파싱
+# ──────────────────────────────────────────────
+def parse_body(filepath: str) -> list[str]:
+    """프론트매터 이후 본문 라인을 반환"""
+    try:
+        with open(filepath, encoding="utf-8") as f:
+            lines = f.readlines()
+    except OSError:
+        return []
+
+    if not lines or lines[0].strip() != "---":
+        return lines   # 프론트매터 없으면 전체가 본문
+
+    in_fm = True
+    body  = []
+    for line in lines[1:]:
+        if in_fm and line.strip() == "---":
+            in_fm = False
+            continue
+        if not in_fm:
+            body.append(line.rstrip())
+    return body
+
+
+def meaningful_lines(body: list[str]) -> list[str]:
+    """
+    본문에서 실질 내용 라인만 추출.
+    제외 대상: 빈 줄 / # 헤딩 / 스텁 경고문(> ⚠️...)
+    """
+    result = []
+    for line in body:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("#"):
+            continue
+        if STUB_WARNING_RE.match(stripped):
+            continue
+        result.append(stripped)
+    return result
+
+
 def parse_frontmatter(filepath: str) -> dict | None:
     """
     파일에서 YAML 프론트매터를 파싱해 dict 반환.
@@ -185,6 +233,36 @@ def check_source_tag(fname: str, fm: dict):
         fail(fname, "tags 필드가 리스트가 아님")
 
 
+def check_stub_integrity(fname: str, fm: dict, body: list[str]):
+    """
+    스텁 본문 무결성 검사 (체크 7)
+
+    케이스 1: todo/fill 태그 있음 + 실질 내용 > 5줄
+      → fill_stubs 실행 후 Step4(태그 제거)를 누락한 것으로 판단 → WARN
+
+    케이스 2: todo/fill 태그 없음 + 실질 내용 == 0줄
+      → 내용이 없는 영구 노트 (스텁도 아님) → FAIL
+    """
+    stub    = is_stub(fm)
+    content = meaningful_lines(body)
+
+    if stub and len(content) > 5:
+        warn(
+            fname,
+            f"todo/fill 태그가 있지만 실질 내용 {len(content)}줄 존재\n"
+            f"       └─ fill_stubs 실행 후 태그 제거(Step 4) 누락 가능성\n"
+            f"       └─ 확인 후 tags 에서 'todo/fill' 제거 필요"
+        )
+
+    if not stub and len(content) == 0:
+        fail(
+            fname,
+            "본문 내용 없음 (빈 영구 노트)\n"
+            f"       └─ todo/fill 태그도 없어 스텁으로 인식되지 않음\n"
+            f"       └─ 내용을 채우거나 tags 에 'todo/fill' 추가 필요"
+        )
+
+
 # ──────────────────────────────────────────────
 # 유형별 검사
 # ──────────────────────────────────────────────
@@ -200,7 +278,7 @@ def check_lit(fname: str, fm: dict):
     check_source_tag(fname, fm)
 
 
-def check_perm(fname: str, fm: dict):
+def check_perm(fname: str, fm: dict, body: list[str]):
     """영구 노트 필수 필드 검사 (스텁 포함)"""
     stub = is_stub(fm)
 
@@ -218,6 +296,9 @@ def check_perm(fname: str, fm: dict):
     source = fm.get("source", "")
     if not stub and (source == "" or source is None):
         warn(fname, "source 필드가 비어있음  (출처 문헌 노트 링크 권장: \"[[@파일명]]\")")
+
+    # 스텁 본문 무결성 검사
+    check_stub_integrity(fname, fm, body)
 
 
 def check_moc(fname: str, fm: dict):
@@ -237,7 +318,8 @@ def check_moc(fname: str, fm: dict):
 # ──────────────────────────────────────────────
 def check_file(fname: str):
     filepath = os.path.join(WIKI_DIR, fname)
-    fm = parse_frontmatter(filepath)
+    fm   = parse_frontmatter(filepath)
+    body = parse_body(filepath)
 
     # 프론트매터 블록 자체 없음
     if fm is None:
@@ -250,7 +332,7 @@ def check_file(fname: str):
     elif ntype == "moc":
         check_moc(fname, fm)
     else:
-        check_perm(fname, fm)
+        check_perm(fname, fm, body)
 
 
 # ──────────────────────────────────────────────
