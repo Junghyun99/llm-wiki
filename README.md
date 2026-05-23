@@ -61,26 +61,26 @@ llm-wiki/
 
 ### 2. 지식 분해 (Ingest)
 ```
-/process-inbox
+/process_inbox
 ```
 LLM이 소스를 읽고 핵심 요약 + 추출 예정 노트 목록을 Preview로 보여줍니다.
 승인하면 `03_Wiki/`에 노트가 생성되고 원본은 `02_Raw_Sources/`로 아카이빙됩니다.
 
 ### 3. 위키 정비 (Lint)
 ```
-/run-maintenance
+/run_maintenance
 ```
 중복 병합, 고립 노트 구출, 데드링크 복구, MOC 최신화, 충돌 감지를 수행하고 리포트를 출력합니다.
 
 ### 4. 스텁 보완 (Fill)
 ```
-/fill-stubs
+/fill_stubs
 ```
 `#todo/fill` 태그가 달린 미작성 노트를 웹 검색으로 채웁니다. 초안을 보여주고 승인 후 저장합니다.
 
 ### 5. 지식 쿼리 (Query)
 ```
-/ask [질문내용]
+/ask_wiki [질문내용]
 ```
 위키를 먼저 탐색하고 출처를 명시한 답변을 생성합니다. 가치 있는 답변은 영구 노트로 저장을 제안합니다.
 
