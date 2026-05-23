@@ -164,7 +164,7 @@ index.md 갱신 후 `03_Wiki/log.md` 맨 **하단**에 아래 형식으로 항�
 index.md·log.md 갱신이 끝난 직후, 아래 스크립트를 실행하여 데드링크를 처리한다. **이 단계는 LLM이 판단하지 않고 스크립트에 완전히 위임한다.**
 
 ```bash
-python3 .claude/scripts/check_dead_links.py \
+python3 .claude/skills/extract-zettelkasten/scripts/check_dead_links.py \
   --files "생성된파일1.md,생성된파일2.md,..." \
   --token "<GITHUB_PAT>" \
   --date "YYYY-MM-DD"
@@ -177,7 +177,7 @@ python3 .claude/scripts/check_dead_links.py \
 4. **파일 없음** → 스텁 파일 자동 생성 (`#todo/fill` 태그 포함)
 5. index.md 스텁 행 삽입 및 통계 갱신, log.md 마지막 ingest 블록에 스텁 목록 추가
 
-**스크립트 위치:** `.claude/scripts/check_dead_links.py`
+**스크립트 위치:** `.claude/skills/extract-zettelkasten/scripts/check_dead_links.py`
 
 > ✋ LLM은 이 단계에서 링크 유효성을 직접 판단하거나 스텁을 수동 생성하지 않는다.
 
