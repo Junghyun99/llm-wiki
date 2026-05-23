@@ -29,7 +29,24 @@ jobs:
         run: python3 .github/scripts/check_index_stats.py
 
   # ──────────────────────────────────────────────
-  # Job 2: 데드 링크 전수 검사
+  # Job 2: index.md 동기화 검사
+  # ──────────────────────────────────────────────
+  check-index-sync:
+    name: "🗂️ index.md 동기화"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run index sync check
+        run: python3 .github/scripts/check_index_sync.py
+
+  # ──────────────────────────────────────────────
+  # Job 3: 데드 링크 전수 검사
   # ──────────────────────────────────────────────
   check-dead-links:
     name: "🔗 데드 링크 검사"
