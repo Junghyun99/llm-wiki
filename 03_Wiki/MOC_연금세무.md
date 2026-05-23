@@ -2,6 +2,7 @@
 aliases: [연금세무, 세금과 연금, 절세 연금]
 tags: [MOC, 세금, 연금, 증여세, 국민연금]
 date_created: 2026-05-22
+date_updated: 2026-05-23
 ---
 
 # MOC 연금세무
