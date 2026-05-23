@@ -161,7 +161,7 @@ index.md 갱신 후 `03_Wiki/log.md` 맨 **하단**에 아래 형식으로 항�
 
 ## 7-1. 데드링크 자동 스텁화 (스크립트 위임)
 
-index.md·log.md 갱신이 끝난 직후, 아래 스크립트를 실행하여 데드링크를 처리한다. **이 단계는 LLM이 판단하지 않고 스크립트에 완전히 위임한다.**
+index.md·log.md 갱신이 끝난 직후, 아래 스크립트를 실행한다. **파일 존재 확인과 스텁 생성만 스크립트에 위임하고, index/log 업데이트는 LLM이 처리한다.**
 
 ```bash
 python3 .claude/skills/extract-zettelkasten/scripts/check_dead_links.py \
@@ -169,16 +169,16 @@ python3 .claude/skills/extract-zettelkasten/scripts/check_dead_links.py \
   --date "YYYY-MM-DD"
 ```
 
-**스크립트 동작 (자동):**
-1. 지정된 파일들의 `[[링크]]` 패턴을 모두 수집한다.
-2. `@` 접두사(문헌노트), `MOC_` 접두사(허브노트) 링크는 제외한다.
-3. 각 링크 대상 `03_Wiki/링크명.md` 의 존재 여부를 GitHub API로 확인한다.
-4. **파일 없음** → 스텁 파일 자동 생성 (`#todo/fill` 태그 포함)
-5. index.md 스텁 행 삽입 및 통계 갱신, log.md 마지막 ingest 블록에 스텁 목록 추가
+**스크립트 동작:**
+1. 지정된 파일들의 `[[링크]]`를 수집한다. (`@`, `MOC_` 제외)
+2. 각 링크 대상 파일의 존재 여부를 파일시스템에서 확인한다.
+3. 없는 파일만 스텁으로 생성하고 `stub: 링크명.md` 형태로 출력한다.
+
+**스크립트 실행 후 LLM 처리:**
+- 출력된 스텁 목록을 확인하여 `index.md` 영구 노트 테이블에 스텁 행 추가
+- `log.md` 마지막 ingest 블록에 `- 스텁 생성: N건` 추가
 
 **스크립트 위치:** `.claude/skills/extract-zettelkasten/scripts/check_dead_links.py`
-
-> ✋ LLM은 이 단계에서 링크 유효성을 직접 판단하거나 스텁을 수동 생성하지 않는다.
 
 ---
 
