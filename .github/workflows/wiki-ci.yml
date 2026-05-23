@@ -29,7 +29,24 @@ jobs:
         run: python3 .github/scripts/check_index_stats.py
 
   # ──────────────────────────────────────────────
-  # Job 2: 파일명 명명 규칙 검사
+  # Job 2: 프론트매터 필수 필드 검사
+  # ──────────────────────────────────────────────
+  check-frontmatter:
+    name: "📋 프론트매터 필수 필드"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run frontmatter check
+        run: python3 .github/scripts/check_frontmatter.py
+
+  # ──────────────────────────────────────────────
+  # Job 3: 파일명 명명 규칙 검사
   # ──────────────────────────────────────────────
   check-naming:
     name: "📝 파일명 명명 규칙"
