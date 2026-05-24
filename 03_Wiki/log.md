@@ -128,3 +128,8 @@
 - 완료(저장): `칼마비율_Calmar_Ratio.md`
 - 신규 스텁 생성: 5건 (`최대낙폭_MDD.md`, `샤프비율_Sharpe_Ratio.md`, `소르티노비율_Sortino_Ratio.md`, `CAGR_연복리수익률.md`, `MOC_퀀트_트레이딩_시스템.md`)
 - 잔여 스텁: 5개 (다음 /fill_stubs 실행 시 처리)
+
+## [2026-05-24] fill-stubs | 중복 스텁 정정
+- 삭제(중복): `최대낙폭_MDD.md`→`MDD_최대낙폭.md` 기존 존재, `샤프비율_Sharpe_Ratio.md`→`샤프지수.md`, `소르티노비율_Sortino_Ratio.md`→`소르티노지수.md`, `CAGR_연복리수익률.md`→`CAGR.md`, `MOC_퀀트_트레이딩_시스템.md`→`MOC_퀀트트레이딩.md`
+- 링크 수정: `칼마비율_Calmar_Ratio.md` 내 [[]] 링크를 기존 파일명으로 교정
+- 잔여 스텁: 0개
