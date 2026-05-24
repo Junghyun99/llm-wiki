@@ -1,6 +1,6 @@
 ---
 aliases: [칼마비율, Calmar Ratio, 칼마 비율]
-tags: [permanent, quant, risk-management, performance-metrics]
+tags: [permanent, 퀀트, 성과지표, 리스크]
 date_created: 2026-05-24
 source: ""
 ---
