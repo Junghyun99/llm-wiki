@@ -29,13 +29,15 @@ $$
 ## Python 구현
 
 ```python
+import pandas as pd
+
 def cagr(initial_value: float, final_value: float, years: float) -> float:
     """연평균 복리 수익률 계산"""
     return (final_value / initial_value) ** (1 / years) - 1
 
 # pandas 포트폴리오 수익률에서 계산
-def portfolio_cagr(portfolio_values: pd.Series) -> float:
-    n_years = len(portfolio_values) / 252  # 영업일 기준
+def portfolio_cagr(portfolio_values: pd.Series, periods_per_year: int = 252) -> float:
+    n_years = len(portfolio_values) / periods_per_year
     return (portfolio_values.iloc[-1] / portfolio_values.iloc[0]) ** (1 / n_years) - 1
 ```
 
@@ -54,7 +56,7 @@ def portfolio_cagr(portfolio_values: pd.Series) -> float:
 - 기간 선택에 따라 크게 달라지므로, **동일한 기간** 기준으로 전략 간 비교해야 한다.
 
 ## 연관 개념
-- [[MDD]] — 최대 낙폭; CAGR과 함께 리스크 대비 수익을 평가한다
+- [[MDD_최대낙폭]] — 최대 낙폭; CAGR과 함께 리스크 대비 수익을 평가한다
 - [[소르티노지수]] — 하방 리스크 대비 초과 수익률
 - [[샤프지수]] — 전체 변동성 대비 초과 수익률
 - [[MOC_퀀트트레이딩]]
