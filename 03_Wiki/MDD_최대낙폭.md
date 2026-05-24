@@ -34,13 +34,11 @@ $$MDD = \frac{90 - 150}{150} \times 100 = -40\%$$
 
 ```python
 import pandas as pd
-import numpy as np
 
 def calculate_mdd(prices: pd.Series) -> float:
-    """누적 수익률 기준 MDD 계산"""
-    cumulative = (1 + prices.pct_change()).cumprod()
-    rolling_max = cumulative.cummax()
-    drawdown = (cumulative - rolling_max) / rolling_max
+    """가격 시계열 기준 MDD 계산"""
+    rolling_max = prices.cummax()
+    drawdown = (prices - rolling_max) / rolling_max
     return drawdown.min()  # 음수값 반환 (예: -0.40)
 ```
 
