@@ -123,3 +123,8 @@
 - 완료(저장): `소르티노지수.md`
 - 신규 스텁 생성: 1건 (`칼마비율(Calmar Ratio).md`)
 - 잔여 스텁: 1개 (다음 /fill_stubs 실행 시 처리)
+
+## [2026-05-24] fill-stubs | 스텁 보완
+- 완료(저장): `칼마비율_Calmar_Ratio.md`
+- 신규 스텁 생성: 5건 (`최대낙폭_MDD.md`, `샤프비율_Sharpe_Ratio.md`, `소르티노비율_Sortino_Ratio.md`, `CAGR_연복리수익률.md`, `MOC_퀀트_트레이딩_시스템.md`)
+- 잔여 스텁: 5개 (다음 /fill_stubs 실행 시 처리)
