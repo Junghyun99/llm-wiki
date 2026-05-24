@@ -1,5 +1,5 @@
 ---
-aliases: []
+aliases: [칼마비율, Calmar Ratio, 칼마 비율]
 tags: [permanent, todo/fill, quant, risk-management, performance-metrics]
 date_created: 2026-05-24
 source: ""
