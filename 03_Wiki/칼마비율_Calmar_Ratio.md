@@ -67,6 +67,8 @@ def calmar_ratio(returns: pd.Series, periods: int = 252) -> float:
     returns: 일별 수익률 Series
     periods: 연간 거래일 수 (주식 252, 선물 365)
     """
+    if returns.empty:
+        return np.nan
     cagr = (1 + returns).prod() ** (periods / len(returns)) - 1
     cumulative = (1 + returns).cumprod()
     rolling_max = cumulative.cummax()
