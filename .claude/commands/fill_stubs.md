@@ -76,6 +76,27 @@ grep -rl "todo/fill" 03_Wiki/
 판정이 **단일 개념**인 경우에 수행한다.
 
 승인된 초안을 스텁 파일에 덮어쓰고, YAML frontmatter의 `tags`에서 `todo/fill`을 제거한다.
+Step 5A-1으로 진행한다.
+
+---
+
+### Step 5A-1 — 데드링크 스텁화
+저장된 노트의 `[[링크]]`를 검사하여 존재하지 않는 대상을 스텁으로 자동 생성한다.
+`extract-zettelkasten` 스킬 섹션 6과 동일한 스크립트를 사용한다.
+
+```bash
+python3 .claude/skills/extract-zettelkasten/scripts/check_dead_links.py \
+  --files "저장된파일명.md" \
+  --date "YYYY-MM-DD"
+```
+
+- **스텁이 생성된 경우:** `index.md`의 `## 🧠 영구 노트` 테이블에 아래 형식으로 항목을 추가한다.
+  ```
+  | [[스텁명]] | ⚠️ 스텁(미작성) | YYYY-MM-DD | todo/fill |
+  ```
+  통계 블록의 스텁 카운트와 총 노트 수도 함께 갱신한다.
+- **스텁이 없으면:** 이 단계를 건너뛴다.
+
 Step 6으로 진행한다.
 
 ---
@@ -106,8 +127,10 @@ Step 5A 또는 Step 5B를 수행한 경우(건너뛰기가 아닌 경우)에만 
   ## [YYYY-MM-DD] fill-stubs | 스텁 보완
   - 완료(저장): `노트명.md`   ← Step 5A인 경우
   - 완료(분해위임): `노트명.md` → 01_Inbox/   ← Step 5B인 경우
+  - 신규 스텁 생성: N건 (`스텁명1.md`, `스텁명2.md`)   ← Step 5A-1에서 생성된 경우만
   - 잔여 스텁: N개 (다음 /fill-stubs 실행 시 처리)
   ```
+  > 신규 스텁이 없으면 `신규 스텁 생성` 줄은 생략한다.
 
 ---
 
