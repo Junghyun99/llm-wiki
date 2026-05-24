@@ -67,12 +67,12 @@ def calmar_ratio(returns: pd.Series, periods: int = 252) -> float:
     returns: 일별 수익률 Series
     periods: 연간 거래일 수 (주식 252, 선물 365)
     """
-    cagr = returns.mean() * periods
+    cagr = (1 + returns).prod() ** (periods / len(returns)) - 1
     cumulative = (1 + returns).cumprod()
     rolling_max = cumulative.cummax()
     drawdown = (cumulative - rolling_max) / rolling_max
     mdd = drawdown.min()  # 음수값
-    return cagr / abs(mdd)
+    return cagr / abs(mdd) if mdd != 0 else np.inf
 ```
 
 > 라이브러리 활용: `quantstats.stats.calmar(returns)` 또는 `empyrical.calmar_ratio(returns)`
