@@ -1,8 +1,8 @@
 ---
 aliases: [최대 낙폭, Maximum Drawdown, MDD]
-tags: [permanent, 퀀트, 성과지표, 리스크]
+tags: [permanent, 퀀트, 성과지표, 리스크, conflict]
 date_created: 2026-05-23
-date_updated: 2026-05-24
+date_updated: 2026-06-02
 source: "https://blog.intelliquant.ai/post/max-drawdown"
 ---
 # MDD_최대낙폭
