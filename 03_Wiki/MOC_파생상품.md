@@ -2,7 +2,7 @@
 aliases: [파생상품, Derivatives, 옵션, 선물]
 tags: [moc, 파생상품, 옵션, 투자]
 date_created: 2026-05-24
-date_updated: 2026-05-24
+date_updated: 2026-05-26
 scope: "옵션·선물 등 파생상품의 구조, 가격 결정, 헤지 전략, 시장 영향을 다루는 허브 노트"
 ---
 
