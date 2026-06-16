@@ -56,7 +56,7 @@ def calculate_mdd(prices: pd.Series) -> float:
 - **보완 지표:** [[샤프지수]], [[칼마비율_Calmar_Ratio|Calmar Ratio]](`CAGR / |MDD|`), Ulcer Index
 
 ## 퀀트 전략 평가에서의 활용
-- [[칼마비율_Calmar_Ratio|Calmar Ratio]] = CAGR / |MDD| — 수익 대비 최대손실 효율. 값이 클수록 리스크 대비 수익 우수
+- **[[칼마비율_Calmar_Ratio|Calmar Ratio]]** = CAGR / |MDD| — 수익 대비 최대손실 효율. 값이 클수록 리스크 대비 수익 우수
 - MDD가 **-20% 이하**인 전략은 일반적으로 개인 투자자가 심리적으로 버티기 어려운 구간으로 간주
 - 백테스트 결과의 MDD는 실제 운용 시 **과소 추정**될 가능성이 높으므로 보수적 해석 필요
 
