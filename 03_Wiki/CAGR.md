@@ -57,6 +57,7 @@ def portfolio_cagr(portfolio_values: pd.Series, periods_per_year: int = 252) -> 
 
 ## 연관 개념
 - [[MDD_최대낙폭]] — 최대 낙폭; CAGR과 함께 리스크 대비 수익을 평가한다
+- [[칼마비율_Calmar_Ratio]] — CAGR ÷ |MDD|로 계산하는 리스크 조정 성과지표
 - [[소르티노지수]] — 하방 리스크 대비 초과 수익률
 - [[샤프지수]] — 전체 변동성 대비 초과 수익률
 - [[MOC_퀀트트레이딩]]
